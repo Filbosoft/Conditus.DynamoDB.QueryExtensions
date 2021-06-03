@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.6.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C36824E6-FC36-4FC7-9296-E17D714E31D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conditus.DynamoDB.QueryExtensions", "src\Conditus.DynamoDB.QueryExtensions\Conditus.DynamoDB.QueryExtensions.csproj", "{C5645646-4745-4903-BA33-FD068B166458}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6AE854C2-9D15-46A3-9A98-D52CA50EC5D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conditus.DynamoDB.QueryExtensions.UnitTests", "test\Conditus.DynamoDB.QueryExtensions.UnitTests\Conditus.DynamoDB.QueryExtensions.UnitTests.csproj", "{1C569068-2D5D-4902-85C7-6BBB21BA1432}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|x64.Build.0 = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|x64.Build.0 = Release|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5645646-4745-4903-BA33-FD068B166458}.Release|x86.Build.0 = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|x64.Build.0 = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|x64.ActiveCfg = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|x64.Build.0 = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5645646-4745-4903-BA33-FD068B166458} = {C36824E6-FC36-4FC7-9296-E17D714E31D7}
+		{1C569068-2D5D-4902-85C7-6BBB21BA1432} = {6AE854C2-9D15-46A3-9A98-D52CA50EC5D3}
+	EndGlobalSection
+EndGlobal
