@@ -11,8 +11,10 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses
         public string HashKey { get; set; }
 
         [DynamoDBRangeKey]
+        [DynamoDBGlobalSecondaryIndexRangeKey(ClassWithDynamoDBAttributesGlobalSecondaryIndexes.Index1)]
         public string RangeKey { get; set; }
 
+        [DynamoDBGlobalSecondaryIndexHashKey(ClassWithDynamoDBAttributesGlobalSecondaryIndexes.Index1)]
         [DynamoDBLocalSecondaryIndexRangeKey(ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1)]
         public string Index1Key { get; set; }
 
@@ -24,5 +26,10 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses
     {
         public const string Index1 = "Idx1";
         public const string Index2 = "Idx2";
+    }
+
+    public static class ClassWithDynamoDBAttributesGlobalSecondaryIndexes
+    {
+        public const string Index1 = "Idx1";
     }
 }
