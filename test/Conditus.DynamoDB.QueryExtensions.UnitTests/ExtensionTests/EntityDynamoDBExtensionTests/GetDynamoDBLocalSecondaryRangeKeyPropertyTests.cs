@@ -16,7 +16,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.ExtensionTests.EntityDynam
             var localSecondaryRangeProperty = typeof(ClassWithDynamoDBAttributes).GetProperty(nameof(entity.Index1Key));
 
             //When
-            var resultRangeKeyProperty = entity.GetDynamoDBLocalSecondaryRangeKeyProperty(TestEntitySecondaryLocalIndexes.Index1);
+            var resultRangeKeyProperty = entity.GetDynamoDBLocalSecondaryRangeKeyProperty(ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
 
             //Then
             resultRangeKeyProperty.Should()
@@ -44,7 +44,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.ExtensionTests.EntityDynam
             var localSecondaryRangeProperty = typeof(ClassWithDynamoDBAttributes).GetProperty(nameof(ClassWithDynamoDBAttributes.Index1Key));
 
             //When
-            var resultRangeKeyProperty = entityType.GetDynamoDBLocalSecondaryRangeKeyProperty(TestEntitySecondaryLocalIndexes.Index1);
+            var resultRangeKeyProperty = entityType.GetDynamoDBLocalSecondaryRangeKeyProperty(ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
 
             //Then
             resultRangeKeyProperty.Should()

@@ -37,14 +37,14 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.ExtensionTests.IAmazonDyna
             var resultEntity = await mockDynamoDB.LoadByLocalSecondaryIndexAsync<ClassWithDynamoDBAttributes>(
                 hashValue,
                 localSecondaryRangeValue,
-                TestEntitySecondaryLocalIndexes.Index1);
+                ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
 
             //Then
             resultEntity.Should().BeEquivalentTo(mockEntity);
         }
 
         [Fact]
-        public async void LoadByLocalSecondaryIndexAsync_WithTypeWithoutHashKey_ShouldThrowArgumentException()
+        public void LoadByLocalSecondaryIndexAsync_WithTypeWithoutHashKey_ShouldThrowArgumentException()
         {
             //Given
             var mockDynamoDB = Substitute.For<IAmazonDynamoDB>();
@@ -56,7 +56,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.ExtensionTests.IAmazonDyna
             var action = mockDynamoDB.Invoking(e => e.LoadByLocalSecondaryIndexAsync<ClassWithoutDynamoDBAttributes>(
                 hashValue,
                 localSecondaryRangeValue,
-                TestEntitySecondaryLocalIndexes.Index1));
+                ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1));
 
             //Then
             action.Should().Throw<ArgumentException>();

@@ -13,14 +13,14 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses
         [DynamoDBRangeKey]
         public string RangeKey { get; set; }
 
-        [DynamoDBLocalSecondaryIndexRangeKey(TestEntitySecondaryLocalIndexes.Index1)]
+        [DynamoDBLocalSecondaryIndexRangeKey(ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1)]
         public string Index1Key { get; set; }
 
-        [DynamoDBLocalSecondaryIndexRangeKey(TestEntitySecondaryLocalIndexes.Index2)]
+        [DynamoDBLocalSecondaryIndexRangeKey(ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index2)]
         public string Index2Key { get; set; }
     }
 
-    public static class TestEntitySecondaryLocalIndexes
+    public static class ClassWithDynamoDBAttributesLocalSecondaryIndexes
     {
         public const string Index1 = "Idx1";
         public const string Index2 = "Idx2";
