@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
+using Conditus.DynamoDB.QueryExtensions.Extensions;
 using Conditus.DynamoDB.QueryExtensions.Pagination;
 using Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses;
 using FluentAssertions;
@@ -23,7 +24,8 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var token = PaginationTokenConverter.GetToken<ClassWithDynamoDBAttributes>(lastEvaluatedKey);
 
             //Then
-            token.Should().Be(hashKey);
+            var expectedToken = hashKey.EncodeBase64();
+            token.Should().Be(expectedToken);
         }
 
         [Fact]
@@ -40,7 +42,8 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var token = PaginationTokenConverter.GetToken<ClassWithDynamoDBAttributes>(lastEvaluatedKey);
 
             //Then
-            token.Should().Be(hashKey);
+            var expectedToken = hashKey.EncodeBase64();
+            token.Should().Be(expectedToken);
         }
 
         [Fact]
@@ -59,7 +62,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var token = PaginationTokenConverter.GetToken<ClassWithDynamoDBAttributes>(lastEvaluatedKey);
 
             //Then
-            var expectedToken = hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey;
+            var expectedToken = (hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey).EncodeBase64();
             token.Should().Be(expectedToken);
         }
 
@@ -79,7 +82,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var token = PaginationTokenConverter.GetToken<ClassWithDynamoDBAttributes>(lastEvaluatedKey);
 
             //Then
-            var expectedToken = hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey;
+            var expectedToken = (hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey).EncodeBase64();
             token.Should().Be(expectedToken);
         }
 
@@ -101,7 +104,7 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var token = PaginationTokenConverter.GetToken<ClassWithDynamoDBAttributes>(lastEvaluatedKey);
 
             //Then
-            var expectedToken = hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey + PaginationTokenConverter.KEY_SEPARATOR + secondaryRangeKey;
+            var expectedToken = (hashKey + PaginationTokenConverter.KEY_SEPARATOR + rangeKey + PaginationTokenConverter.KEY_SEPARATOR + secondaryRangeKey).EncodeBase64();
             token.Should().Be(expectedToken);
         }
     }

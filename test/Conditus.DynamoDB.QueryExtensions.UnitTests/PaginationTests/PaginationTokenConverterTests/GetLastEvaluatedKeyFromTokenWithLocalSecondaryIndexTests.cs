@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
+using Conditus.DynamoDB.QueryExtensions.Extensions;
 using Conditus.DynamoDB.QueryExtensions.Pagination;
 using Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses;
 using FluentAssertions;
@@ -19,10 +20,11 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var rangeKeyValue = "rangeKeyValue";
             var secondaryKeyValue = "localSecondaryRangeKeyValue";
             var token = hashKeyValue + PaginationTokenConverter.KEY_SEPARATOR + rangeKeyValue + PaginationTokenConverter.KEY_SEPARATOR + secondaryKeyValue;
+            var base64Token = token.EncodeBase64();
 
             //When
             var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex<ClassWithDynamoDBAttributes>(
-                token, ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
+                base64Token, ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
             //Then
             
             lastEvaluatedKey.Should().HaveCount(3)
@@ -48,11 +50,14 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
         [MemberData(nameof(TokensWithoutLocalSecondaryIndex))]
         public void GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex_WithTokenKeyPartsNotBeingThree_ShouldThrowArgumentException(string token)
         {
+            //Given
+            var base64Token = token.EncodeBase64();
+
             //When
             try
             {
                 PaginationTokenConverter.GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex<ClassWithDynamoDBAttributes>(
-                    token, ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
+                    base64Token, ClassWithDynamoDBAttributesLocalSecondaryIndexes.Index1);
 
                 throw new Exception($"{nameof(PaginationTokenConverter.GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex)} was expected to throw ArgumentException, but ran without exceptions");
             }

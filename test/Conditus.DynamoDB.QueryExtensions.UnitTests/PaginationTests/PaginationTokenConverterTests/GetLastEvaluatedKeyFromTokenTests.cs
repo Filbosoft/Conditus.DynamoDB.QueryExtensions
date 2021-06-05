@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
+using Conditus.DynamoDB.QueryExtensions.Extensions;
 using Conditus.DynamoDB.QueryExtensions.Pagination;
 using Conditus.DynamoDB.QueryExtensions.UnitTests.TestClasses;
 using FluentAssertions;
@@ -16,9 +17,10 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             //Given
             var hashKeyValue = "hashKeyValue";
             var token = hashKeyValue;
+            var base64Token = token.EncodeBase64();
 
             //When
-            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(token);
+            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(base64Token);
 
             //Then
             lastEvaluatedKey.Should().HaveCount(1)
@@ -34,9 +36,10 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             //Given
             var hashKeyValue = "123";
             var token = hashKeyValue;
+            var base64Token = token.EncodeBase64();
 
             //When
-            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(token);
+            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(base64Token);
 
             //Then
             lastEvaluatedKey.Should().HaveCount(1)
@@ -53,9 +56,10 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var hashKeyValue = "hashKeyValue";
             var rangeKeyValue = "rangeKeyValue";
             var token = hashKeyValue + PaginationTokenConverter.KEY_SEPARATOR + rangeKeyValue;
+            var base64Token = token.EncodeBase64();
 
             //When
-            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(token);
+            var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(base64Token);
 
             //Then
             lastEvaluatedKey.Should().HaveCount(2)
@@ -79,11 +83,12 @@ namespace Conditus.DynamoDB.QueryExtensions.UnitTests.PaginationTests.Pagination
             var rangeKeyValue = "rangeKeyValue";
             var secondaryKeyValue = "secondaryKeyValue";
             var token = hashKeyValue + PaginationTokenConverter.KEY_SEPARATOR + rangeKeyValue + PaginationTokenConverter.KEY_SEPARATOR + secondaryKeyValue;
+            var base64Token = token.EncodeBase64();
 
             //When
             try
             {
-                var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(token);
+                var lastEvaluatedKey = PaginationTokenConverter.GetLastEvaluatedKeyFromToken<ClassWithDynamoDBAttributes>(base64Token);
                 throw new Exception($"{nameof(PaginationTokenConverter.GetLastEvaluatedKeyFromToken)} was expected to throw ArgumentException, but ran without exceptions");
             }
             //Then

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Amazon.DynamoDBv2.Model;
-using Conditus.DynamoDB.MappingExtensions.Mappers;
 using Conditus.DynamoDB.QueryExtensions.Extensions;
 
 namespace Conditus.DynamoDB.QueryExtensions.Pagination
@@ -33,7 +32,7 @@ namespace Conditus.DynamoDB.QueryExtensions.Pagination
             var providedTokenKeys = tokenKeys.Where(k => k != null);
             var token = string.Join(KEY_SEPARATOR, providedTokenKeys);
 
-            return token;
+            return token.EncodeBase64();
         }
 
         private static string GetStringFromKeyAttributeValue(AttributeValue attributeValue)
@@ -47,8 +46,9 @@ namespace Conditus.DynamoDB.QueryExtensions.Pagination
             throw new ArgumentException("Key attributes can only be string (S) or numeric (N)", nameof(attributeValue));
         }
 
-        public static Dictionary<string, AttributeValue> GetLastEvaluatedKeyFromToken<TEntity>(string token)
+        public static Dictionary<string, AttributeValue> GetLastEvaluatedKeyFromToken<TEntity>(string base64Token)
         {
+            var token = base64Token.DecodeBase64();
             var tokenKeys = token.Split(KEY_SEPARATOR);
 
             if (tokenKeys.Length >= 3)
@@ -72,8 +72,9 @@ namespace Conditus.DynamoDB.QueryExtensions.Pagination
             return lastEvaluatedKey;
         }
 
-        public static Dictionary<string, AttributeValue> GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex<TEntity>(string token, string indexName)
+        public static Dictionary<string, AttributeValue> GetLastEvaluatedKeyFromTokenWithLocalSecondaryIndex<TEntity>(string base64Token, string indexName)
         {
+            var token = base64Token.DecodeBase64();
             var tokenKeys = token.Split(KEY_SEPARATOR);
 
             if (tokenKeys.Length != 3)
