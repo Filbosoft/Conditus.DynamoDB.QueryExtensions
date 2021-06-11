@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.Model;
+using Conditus.DynamoDB.MappingExtensions.Mappers;
 
 namespace Conditus.DynamoDB.QueryExtensions.Extensions
 {
@@ -22,6 +25,30 @@ namespace Conditus.DynamoDB.QueryExtensions.Extensions
                 throw new ArgumentException($"{entityType.FullName} doesn't have a DynamoDBTableAttribute", nameof(entityType));
 
             return dynamoDBTableAttribute.TableName;
+        }
+
+        public static Dictionary<string, AttributeValue> GetDynamoDBKey<T>(this T entity)
+        {
+            var hashKeyProperty = GetDynamoDBHashKeyProperty<T>(entity);
+            PropertyInfo rangeKeyProperty = null;
+            try
+            {
+                rangeKeyProperty = GetDynamoDBRangeKeyProperty<T>(entity);
+            }
+            catch (ArgumentException)
+            { }
+
+            var key = new Dictionary<string, AttributeValue>();
+            var hashAttributeValue = hashKeyProperty.GetValue(entity).GetAttributeValue();
+            key.Add(hashKeyProperty.Name, hashAttributeValue);
+
+            if (rangeKeyProperty == null)
+                return key;
+
+            var rangeAttributeValue = rangeKeyProperty.GetValue(entity).GetAttributeValue();
+            key.Add(rangeKeyProperty.Name, rangeAttributeValue);
+
+            return key;
         }
 
         public static string GetDynamoDBHashKeyName<T>(this T entity)
@@ -62,7 +89,7 @@ namespace Conditus.DynamoDB.QueryExtensions.Extensions
                 {
                     var propertyRangeAttributes = p.GetCustomAttributes(typeof(DynamoDBHashKeyAttribute));
 
-                    return propertyRangeAttributes.Count() > 0 
+                    return propertyRangeAttributes.Count() > 0
                         && propertyRangeAttributes.Where(a => (Type)a.TypeId == typeof(DynamoDBHashKeyAttribute)).Count() > 0;
                 })
                 .FirstOrDefault();
@@ -111,7 +138,7 @@ namespace Conditus.DynamoDB.QueryExtensions.Extensions
                 {
                     var propertyRangeAttributes = p.GetCustomAttributes(typeof(DynamoDBRangeKeyAttribute));
 
-                    return propertyRangeAttributes.Count() > 0 
+                    return propertyRangeAttributes.Count() > 0
                         && propertyRangeAttributes.Where(a => (Type)a.TypeId == typeof(DynamoDBRangeKeyAttribute)).Count() > 0;
                 })
                 .FirstOrDefault();

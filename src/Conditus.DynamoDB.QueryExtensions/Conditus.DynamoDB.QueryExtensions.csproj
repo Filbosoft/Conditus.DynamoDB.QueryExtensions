@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Conditus.DynamoDB.QueryExtensions</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>The Conditus Team</Authors>
     <Company>Conditus</Company>
     <Description>
@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.26" />
-    <PackageReference Include="Conditus.DynamoDB.MappingExtensions" Version="1.0.0" />
+    <PackageReference Include="Conditus.DynamoDB.MappingExtensions" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
