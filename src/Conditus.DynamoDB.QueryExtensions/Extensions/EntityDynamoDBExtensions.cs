@@ -39,13 +39,15 @@ namespace Conditus.DynamoDB.QueryExtensions.Extensions
             { }
 
             var key = new Dictionary<string, AttributeValue>();
-            var hashAttributeValue = hashKeyProperty.GetValue(entity).GetAttributeValue();
+            var hashAttributeValue = hashKeyProperty.GetValue(entity)
+                .GetAttributeValue(hashKeyProperty.PropertyType);
             key.Add(hashKeyProperty.Name, hashAttributeValue);
 
             if (rangeKeyProperty == null)
                 return key;
 
-            var rangeAttributeValue = rangeKeyProperty.GetValue(entity).GetAttributeValue();
+            var rangeAttributeValue = rangeKeyProperty.GetValue(entity)
+                .GetAttributeValue(rangeKeyProperty.PropertyType);
             key.Add(rangeKeyProperty.Name, rangeAttributeValue);
 
             return key;
